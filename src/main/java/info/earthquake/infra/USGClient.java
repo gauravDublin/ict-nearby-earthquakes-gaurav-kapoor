@@ -1,24 +1,21 @@
 package info.earthquake.infra;
 
-import info.earthquake.domain.EarthQuakeInfoResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static info.earthquake.infra.HttpResponses.requireOkOrError;
+import static java.util.Objects.requireNonNull;
 
-@Service
 public class USGClient {
 
     private final WebClient webClient;
-    private static final String PATH_EARTHQUAKES = "/earthquakes/feed/v1.0/summary/all_month.geojson";
 
-    @Autowired
-    public USGClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://earthquake.usgs.gov").build();
+    @Value("${client.usgs.data}")
+    private String PATH_EARTHQUAKES;
+
+    public USGClient(WebClient webClient) {
+        this.webClient = requireNonNull(webClient);
     }
 
     public Mono<String> findEarthQuakeData() { ;

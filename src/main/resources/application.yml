@@ -1,0 +1,31 @@
+spring:
+  profiles.active: dev
+
+  application:
+    name: usgs-service
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+server:
+  port: 8080
+
+logging:
+  file: logs/usgs-service.log
+  level:
+    org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping: TRACE
+
+management:
+  server:
+    port: 8081
+
+client:
+  usgs:
+    read-timeout: 10    # sec
+    write-timeout: 10   # sec
+    connect-timeout: 20  # sec
+    base-url: https://earthquake.usgs.gov/earthquakes/feed
+    data: /v1.0/summary/all_month.geojson
