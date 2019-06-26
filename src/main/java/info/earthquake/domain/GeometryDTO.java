@@ -16,4 +16,12 @@ public class GeometryDTO {
         this.type = type;
         this.coordinates = coordinates;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public List<Double> getCoordinates() {
+        return coordinates;
+    }
 }

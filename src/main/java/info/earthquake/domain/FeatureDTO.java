@@ -20,4 +20,20 @@ public class FeatureDTO {
         this.geometry = geometry;
         this.id = id;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public PropertyDTO getProperties() {
+        return properties;
+    }
+
+    public GeometryDTO getGeometry() {
+        return geometry;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

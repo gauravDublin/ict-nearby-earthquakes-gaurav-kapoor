@@ -11,7 +11,7 @@ spring:
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: false
 server:
-  port: 8080
+  port: 8088
 
 logging:
   file: logs/usgs-service.log
@@ -21,11 +21,3 @@ logging:
 management:
   server:
     port: 8081
-
-client:
-  usgs:
-    read-timeout: 10    # sec
-    write-timeout: 10   # sec
-    connect-timeout: 20  # sec
-    base-url: https://earthquake.usgs.gov/earthquakes/feed
-    data: /v1.0/summary/all_month.geojson

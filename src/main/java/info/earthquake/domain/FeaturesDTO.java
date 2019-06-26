@@ -11,4 +11,8 @@ public class FeaturesDTO {
     public FeaturesDTO(FeatureDTO feature) {
         this.feature = feature;
     }
+
+    public FeatureDTO getFeature() {
+        return feature;
+    }
 }

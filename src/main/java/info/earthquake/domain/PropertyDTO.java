@@ -69,4 +69,108 @@ public class PropertyDTO {
         this.type = type;
         this.title = title;
     }
+
+    public Double getMag() {
+        return mag;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public Long getUpdated() {
+        return updated;
+    }
+
+    public Integer getTz() {
+        return tz;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public Double getFelt() {
+        return felt;
+    }
+
+    public Double getCdi() {
+        return cdi;
+    }
+
+    public Double getMmi() {
+        return mmi;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Integer getTsunami() {
+        return tsunami;
+    }
+
+    public Integer getSig() {
+        return sig;
+    }
+
+    public String getNet() {
+        return net;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public String getSources() {
+        return sources;
+    }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public Integer getNst() {
+        return nst;
+    }
+
+    public Double getDmin() {
+        return dmin;
+    }
+
+    public Double getRms() {
+        return rms;
+    }
+
+    public Integer getGap() {
+        return gap;
+    }
+
+    public String getMagType() {
+        return magType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

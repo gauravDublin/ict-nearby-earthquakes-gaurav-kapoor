@@ -22,4 +22,20 @@ public class EarthQuakeInfoResponse {
         this.features = features;
         this.bbox = bbox;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public MetaDataDTO getMetadata() {
+        return metadata;
+    }
+
+    public List<FeaturesDTO> getFeatures() {
+        return features;
+    }
+
+    public List<Double> getBbox() {
+        return bbox;
+    }
 }
