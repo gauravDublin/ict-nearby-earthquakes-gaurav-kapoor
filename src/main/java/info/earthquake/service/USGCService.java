@@ -36,6 +36,12 @@ public class USGCService {
 
         EarthQuakeInfoResponse earthQuakeInfoResponse = restTemplate.getForObject(restUrl, EarthQuakeInfoResponse.class);
 
+        saveLocationDataToList(source, pointList, earthQuakeInfoResponse);
+        Map<EarthquakePoint, Double> distanceMapSorted = sortLocationsByIncreasingDistance(source, pointList);
+        consolePrintTop10Results(distanceMapSorted);
+    }
+
+    private void saveLocationDataToList(Location source, List<EarthquakePoint> pointList, EarthQuakeInfoResponse earthQuakeInfoResponse) {
         earthQuakeInfoResponse.getFeatures().forEach(feature -> {
             String title = feature.getFeature().getProperties().getTitle();
             Double lo = feature.getFeature().getGeometry().getCoordinates().get(0);
@@ -44,12 +50,9 @@ public class USGCService {
             EarthquakePoint point = new EarthquakePoint(title, eqPoint, source);
             pointList.add(point);
         });
-
-        Map<EarthquakePoint, Double> distanceMapSorted = sortByDistance(source, pointList);
-        printTop10Results(distanceMapSorted);
     }
 
-    private Map<EarthquakePoint, Double> sortByDistance(Location source, List<EarthquakePoint> pointList) {
+    private Map<EarthquakePoint, Double> sortLocationsByIncreasingDistance(Location source, List<EarthquakePoint> pointList) {
         Map<EarthquakePoint, Double> distanceMapUnsorted = pointList.stream()
                                                             .collect(Collectors.toMap(Function.identity(),
                                                                 point -> DistanceCalculator.calculateDistance(
@@ -60,9 +63,9 @@ public class USGCService {
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
-    private void printTop10Results(Map<EarthquakePoint, Double> distanceMapSorted) {
+    private void consolePrintTop10Results(Map<EarthquakePoint, Double> distanceMapSorted) {
         List<String> top10NearestEarthquakes = distanceMapSorted.entrySet().stream().limit(10)
-                .map(point -> point.getKey().getTitle() + " || " + Math.round(point.getValue() * 100.0) / 100.0)
+                .map(point -> point.getKey().getTitle() + " || " + Math.round(point.getValue() * 100) / 100)
                 .collect(Collectors.toList());
         consoleService.printDashLine();
         consoleService.printTop10();

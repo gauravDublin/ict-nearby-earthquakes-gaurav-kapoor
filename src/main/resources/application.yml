@@ -21,3 +21,8 @@ logging:
 management:
   server:
     port: 8081
+
+app:
+  data:
+    rest-endpoint: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson
+    top_n: 10
