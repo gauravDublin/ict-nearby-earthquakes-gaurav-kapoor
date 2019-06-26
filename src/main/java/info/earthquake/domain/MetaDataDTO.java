@@ -25,4 +25,27 @@ public class MetaDataDTO {
         this.count = count;
     }
 
+    public Long getGenerated() {
+        return generated;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
 }
