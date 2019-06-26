@@ -1,10 +1,9 @@
 package info.earthquake.infra;
 
+import info.earthquake.domain.EarthQuakeInfoResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import static info.earthquake.infra.HttpResponses.requireOkOrError;
 import static java.util.Objects.requireNonNull;
 
 public class USGClient {
@@ -18,13 +17,13 @@ public class USGClient {
         this.webClient = requireNonNull(webClient);
     }
 
-    public Mono<String> findEarthQuakeData() { ;
+    public EarthQuakeInfoResponse findEarthQuakeData() {
         return webClient
                 .get()
                 .uri(PATH_EARTHQUAKES)
-                .exchange()
-                .flatMap(res -> requireOkOrError(res, "Failed to fetch USG events"))
-                .flatMap(response -> response.bodyToMono(String.class));
+                .retrieve()
+                .bodyToMono(EarthQuakeInfoResponse.class)
+                .block();
     }
-
 }
+

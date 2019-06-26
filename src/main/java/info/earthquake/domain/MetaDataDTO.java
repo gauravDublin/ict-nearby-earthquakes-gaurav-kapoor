@@ -15,14 +15,14 @@ public class MetaDataDTO {
 
     @JsonCreator
     public MetaDataDTO(@JsonProperty("generated") Long generated, @JsonProperty("url") String url,
-                       @JsonProperty("title") String title, @JsonProperty("api") String api,
-                       @JsonProperty("count") Integer count, @JsonProperty("status") Integer status) {
+                       @JsonProperty("title") String title,  @JsonProperty("status") Integer status,
+                       @JsonProperty("api") String api, @JsonProperty("count") Integer count) {
         this.generated = generated;
         this.url = url;
         this.title = title;
+        this.status = status;
         this.api = api;
         this.count = count;
-        this.status = status;
     }
 
 }
