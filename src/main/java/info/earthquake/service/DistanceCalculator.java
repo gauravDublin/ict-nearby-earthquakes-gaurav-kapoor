@@ -1,4 +1,4 @@
-package info.earthquake.helper;
+package info.earthquake.service;
 
 import info.earthquake.domain.Location;
 

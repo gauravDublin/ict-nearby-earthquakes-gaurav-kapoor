@@ -1,4 +1,4 @@
-package info.earthquake.helper;
+package info.earthquake.service;
 
 import info.earthquake.domain.EarthQuakeInfoResponse;
 import info.earthquake.domain.EarthquakePoint;
@@ -61,10 +61,11 @@ public class USGCService {
     }
 
     private void printTop10Results(Map<EarthquakePoint, Double> distanceMapSorted) {
-        List<String> resultSet = new LinkedList<>();
         List<String> top10NearestEarthquakes = distanceMapSorted.entrySet().stream().limit(10)
-                .map(point -> point.getKey().getTitle() + " || " + Math.round(point.getValue()*100)/100)
+                .map(point -> point.getKey().getTitle() + " || " + Math.round(point.getValue() * 100.0) / 100.0)
                 .collect(Collectors.toList());
+        consoleService.printDashLine();
+        consoleService.printTop10();
         top10NearestEarthquakes.stream().forEach(earthquake -> System.out.println(earthquake));
     }
 

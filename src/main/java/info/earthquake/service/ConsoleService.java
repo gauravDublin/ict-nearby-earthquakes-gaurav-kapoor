@@ -1,4 +1,4 @@
-package info.earthquake.helper;
+package info.earthquake.service;
 
 import info.earthquake.config.ConsoleConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,16 @@ public class ConsoleService {
     public void printWaitingMessage() {
         printMessageToConsole(consoleConfig.getWaitingMessage() + propertyNewLine);
     }
+
+    public void printDashLine() {
+        printMessageToConsole(consoleConfig.getDashLine() + propertyNewLine);
+    }
+
+    public void printTop10() {
+        printMessageToConsole(consoleConfig.getTop10() + propertyNewLine);
+    }
+
+
     /**
      *
      * @param message to be printed using System.out.println

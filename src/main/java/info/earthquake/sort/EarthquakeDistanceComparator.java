@@ -1,8 +1,7 @@
 package info.earthquake.sort;
 
 import info.earthquake.domain.EarthquakePoint;
-import info.earthquake.domain.Location;
-import info.earthquake.helper.DistanceCalculator;
+import info.earthquake.service.DistanceCalculator;
 
 import java.util.Comparator;
 
