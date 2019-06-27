@@ -2,10 +2,12 @@ package info.earthquake.service;
 
 import info.earthquake.domain.Location;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
-class DistanceCalculatorTest {
+public class DistanceCalculatorTest {
     @Test
     public void smokeTest() {
         Location a1 = new Location(41.3925603, 2.1418532);

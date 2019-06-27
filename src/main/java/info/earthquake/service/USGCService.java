@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.util.Map.Entry.comparingByKey;
+
 @Service
 public class USGCService {
 
@@ -37,7 +39,7 @@ public class USGCService {
         EarthQuakeInfoResponse earthQuakeInfoResponse = restTemplate.getForObject(restUrl, EarthQuakeInfoResponse.class);
 
         saveLocationDataToList(source, pointList, earthQuakeInfoResponse);
-        Map<EarthquakePoint, Double> distanceMapSorted = sortLocationsByIncreasingDistance(source, pointList);
+        Map<Double, EarthquakePoint> distanceMapSorted = sortLocationsByIncreasingDistance(source, pointList);
         consolePrintTop10Results(distanceMapSorted);
     }
 
@@ -52,24 +54,25 @@ public class USGCService {
         });
     }
 
-    private Map<EarthquakePoint, Double> sortLocationsByIncreasingDistance(Location source, List<EarthquakePoint> pointList) {
-        Map<EarthquakePoint, Double> distanceMapUnsorted = pointList.stream()
-                                                            .collect(Collectors.toMap(Function.identity(),
-                                                                point -> DistanceCalculator.calculateDistance(
-                                                                        source, point.getSource())));
+    private Map<Double, EarthquakePoint> sortLocationsByIncreasingDistance(Location source, List<EarthquakePoint> pointList) {
+        Map<Double, EarthquakePoint> distanceMapUnsorted = pointList.stream()
+                .parallel()
+                .collect(Collectors.toMap(point -> DistanceCalculator.calculateDistance(
+                        source, point.getSource()), Function.identity(), (a1, a2) -> a1
+                ));
         return distanceMapUnsorted.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
+                .sorted(comparingByKey())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
-    private void consolePrintTop10Results(Map<EarthquakePoint, Double> distanceMapSorted) {
+    private void consolePrintTop10Results(Map<Double, EarthquakePoint> distanceMapSorted) {
         List<String> top10NearestEarthquakes = distanceMapSorted.entrySet().stream().limit(10)
-                .map(point -> point.getKey().getTitle() + " || " + Math.round(point.getValue() * 100) / 100)
+                .map(point -> point.getValue().getTitle() + " || " + Math.round(point.getKey() * 100) / 100)
                 .collect(Collectors.toList());
         consoleService.printDashLine();
         consoleService.printTop10();
-        top10NearestEarthquakes.stream().forEach(earthquake -> System.out.println(earthquake));
+        top10NearestEarthquakes.stream().forEach(System.out::println);
     }
 
 }

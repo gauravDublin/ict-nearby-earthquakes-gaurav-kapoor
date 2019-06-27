@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.Scanner;
 
 @Service
-@PropertySource("classpath:log4j.properties")
 public class ConsoleService {
 
     private final String propertyNewLine = System.lineSeparator();
