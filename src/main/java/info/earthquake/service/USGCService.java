@@ -18,14 +18,12 @@ public class USGCService {
 
     private final ConsoleService consoleService;
 
-    private final RestTemplate restTemplate;
-
-    private String restUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+    private final EarthQuakeInfoResponse earthQuakeInfoResponse;
 
     @Autowired
-    public USGCService(ConsoleService consoleService, RestTemplate restTemplate) {
+    public USGCService(ConsoleService consoleService, EarthQuakeInfoResponse earthQuakeInfoResponse) {
         this.consoleService = consoleService;
-        this.restTemplate = restTemplate;
+        this.earthQuakeInfoResponse = earthQuakeInfoResponse;
     }
 
     public void calculateNearestEarthquakes() {
@@ -35,8 +33,6 @@ public class USGCService {
         consoleService.printWaitingMessage();
         Location source = new Location(longitude, latitude);
         List<EarthquakePoint> pointList = new ArrayList<>();
-
-        EarthQuakeInfoResponse earthQuakeInfoResponse = restTemplate.getForObject(restUrl, EarthQuakeInfoResponse.class);
 
         saveLocationDataToList(source, pointList, earthQuakeInfoResponse);
         Map<Double, EarthquakePoint> distanceMapSorted = sortLocationsByIncreasingDistance(source, pointList);
